@@ -1,0 +1,97 @@
+.post_container {
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.post_author_published {
+    display: flex;
+    font-size: 15px;
+    gap: 1em;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.text_justify {
+    text-align: justify;
+}
+
+.flex {
+    display: flex;
+    gap: 5px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.col_70 {
+    width: 65%;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}
+
+.col_30 {
+    width: 30%;
+    display: flex;
+    flex-flow: column;
+}
+
+.curtida {
+    display: flex;
+    gap: 10px;
+
+
+}
+
+.heart {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.comments {
+    display: flex;
+    flex-flow: column;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+
+.textarea {
+    border: 1px solid #000;
+    border-radius: 6px;
+    box-shadow: 0 0 0 0;
+    padding: 3px;
+    outline: 0;
+}
+.email_comments{
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    border-radius: 5px;
+    padding: 3px;
+
+}
+.user{
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+    border: 1px solid gray;
+    border-radius: 4px;
+    padding: 20px;
+
+}
+.icon{
+    display: flex;
+    gap: 10px;
+
+}
+.icon_thumbs{
+    cursor: pointer;
+
+}
