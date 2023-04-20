@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { api } from "@/services/api";
+import { api, internalApi } from "@/services/api";
 
 export const PostContext = createContext({});
 
@@ -15,7 +15,7 @@ export const PostProvider = ({ children }) => {
     const loadPosts = async () => {
       setLoadingPosts(true);
       try {
-        const response = await api.get(`?_page=1&_limit=50`);
+        const response = await api.get(`/posts?_page=1&_limit=50`);
         setPosts(response.data);
       } catch (error) {
         console.log(error);
@@ -40,26 +40,21 @@ export const PostProvider = ({ children }) => {
         comment: comentario
       };
 
-      const response = await fetch("/api/comment", {
-        method: "POST",
-        body: JSON.stringify(comment),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      const data = await response.json();
-      setPosts(data);
+      const response = await internalApi.post(`/comments`, comment);
+      const { data } = response;
+      setSelectedPostComments([...selectedPostComments, data]);
+      event.target.reset();
     } catch (error) {
       console.log(error);
     }
   };
 
   const loadPostById = async (id) => {
-    if(selectedPost?.id) return;
+    if (selectedPost?.id) return;
     setLoadingPost(true);
     try {
       if (!id) return;
-      const response = await api.get(`/${id}`);
+      const response = await api.get(`/posts/${id}`);
       setSelectedPost(response.data);
     } catch (error) {
       console.log(error);
@@ -68,8 +63,21 @@ export const PostProvider = ({ children }) => {
     }
   };
 
+
   return (
-    <PostContext.Provider value={{ posts, loadingPosts, createComment, setPosts, setSelectedPost, selectedPost, loadingPost, setLoadingPost, selectedPostComments, setSelectedPostComments, loadPostById }}>
+    <PostContext.Provider value={{
+      posts,
+      loadingPosts,
+      createComment,
+      setPosts,
+      setSelectedPost,
+      selectedPost,
+      loadingPost,
+      setLoadingPost,
+      selectedPostComments,
+      setSelectedPostComments,
+      loadPostById
+    }}>
       {children}
     </PostContext.Provider>
   );

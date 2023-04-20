@@ -35,5 +35,5 @@ export default async function handler(req, res) {
     }
   });
 
-  return res.status(200).json(newComment);
+  return res.status(200).json({ ...newComment, user });
 }

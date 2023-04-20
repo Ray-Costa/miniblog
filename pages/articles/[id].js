@@ -30,12 +30,14 @@ export async function getServerSideProps(context) {
   };
 }
 
+
 export default function Post({ comments }) {
-  const { selectedPost, selectedPostComments, loadPostById } = useContext(PostContext);
+  const { selectedPost, selectedPostComments, loadPostById, setSelectedPostComments } = useContext(PostContext);
 
   const router = useRouter();
 
   useEffect(() => {
+    setSelectedPostComments(comments);
     loadPostById(router.query.id);
   }, [router.query]);
 
