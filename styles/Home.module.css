@@ -4,4 +4,12 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 30px;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-y: scroll;
+
+}
+.posts_container::-webkit-scrollbar {
+    width: 3px;
+    background: transparent;
 }

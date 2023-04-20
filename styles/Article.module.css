@@ -20,7 +20,14 @@
 
 .flex {
     display: flex;
-    gap: 5px;
+    align-items: center;
+
+}
+.flex_calendario{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
 }
 
 .row {
@@ -93,5 +100,25 @@
 }
 .icon_thumbs{
     cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.icon_thumbs_img:hover{
+    transform: scale(1.2);
+    transition: 0.5s;
 
+}
+.icon_thumbs_curtida{
+   cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+
+}
+.icon_thumbs_curtida:hover{
+    transform: scale(1.2);
+    transition: 0.5s;
 }

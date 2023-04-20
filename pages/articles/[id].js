@@ -6,6 +6,8 @@ import { PrismaClient } from "@prisma/client";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { PostContext } from "@/contexts/PostContext";
+import Image from "next/image";
+import { internalApi } from "@/services/api";
 
 library.add(fas);
 // import { BiCommentDetail, BsHandThumbsUp, MdEmail } from "react-icons/all";
@@ -30,11 +32,16 @@ export async function getServerSideProps(context) {
   };
 }
 
-
 export default function Post({ comments }) {
   const { selectedPost, selectedPostComments, loadPostById, setSelectedPostComments } = useContext(PostContext);
 
   const router = useRouter();
+
+  const likeComment = async (comment) => {
+    await internalApi.post(`/comments/like`, { commentId: comment.id });
+    comment.likesCount += 1;
+    setSelectedPostComments([...selectedPostComments]);
+  };
 
   useEffect(() => {
     setSelectedPostComments(comments);
@@ -50,9 +57,11 @@ export default function Post({ comments }) {
                  height="100%"/>
             <div className={styles.post_author_published}>
               <h3 className={styles.flex}>
+                <Image alt="curtida" src="/imgautor.png" width="40" height="40"/>
                 {selectedPost?.author}
               </h3>
-              <h3 className={styles.flex}>
+              <h3 className={styles.flex_calendario}>
+                <Image alt="curtida" src="/imgcalendario.png" width="20" height="20"/>
                 {selectedPost?.published}
               </h3>
             </div>
@@ -70,19 +79,19 @@ export default function Post({ comments }) {
               {selectedPostComments ? selectedPostComments.map((comment) => (
                 <div key={comment.id} className={styles.user}>
                   <p className={styles.icon}>
-                    {/*<FontAwesomeIcon icon="envelope"/>*/}
-                    {/*<MdEmail/>*/}
+                    <Image alt="curtida" src="/imgemail.png" width="20" height="20"/>
                     {comment.user.email}
                   </p>
                   <p className={styles.icon}>
-                    {/*<FontAwesomeIcon icon="comment"/>*/}
-                    {/*<BiCommentDetail/>*/}
+                    <Image alt="curtida" src="/imgcoment.png" width="20" height="20"/>
                     {comment.text}
                   </p>
                   <p className={styles.icon_thumbs}>
-                    {/*<FontAwesomeIcon icon="thumbs-up"/>*/}
-                    {/*<BsHandThumbsUp/>*/}
-                    {comment.likeCount}
+                    <button className={styles.icon_thumbs_curtida} type="button" onClick={() => likeComment(comment)}>
+                      <img
+                        alt="curtida" src="/imgcurtida.png" width="20" height="20"/></button>
+                    {comment.likesCount}
+
                   </p>
                 </div>
               )) : <p>Nenhum comentário encontrado</p>}

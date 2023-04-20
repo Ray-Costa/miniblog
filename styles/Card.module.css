@@ -2,10 +2,21 @@
     text-transform: capitalize;
     font-size: 1.4em;
     padding: 0.5em;
+    cursor: pointer;
+}
+.card_title:hover{
+    color: #000;
+    text-decoration: underline;
 }
 
 .card_image {
     border-radius: 1em 1em 0 0;
+    text-align: center;
+
+}
+.card_image:hover{
+    transform: scale(1.01);
+    transition: 0.5s all cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .card {
@@ -16,4 +27,7 @@
     border-radius: 1em;
     box-shadow: 5px 5px 12px rgba(0, 0, 0, 0.5);
     gap: 10px;
+
 }
+
+

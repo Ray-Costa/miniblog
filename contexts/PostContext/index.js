@@ -11,20 +11,34 @@ export const PostProvider = ({ children }) => {
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadingPost, setLoadingPost] = useState(false);
 
+
+  const loadPosts = async () => {
+    setLoadingPosts(true);
+    try {
+      const response = await api.get(`/posts?_page=1&_limit=50`);
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingPosts(false);
+    }
+  };
+
   useEffect(() => {
-    const loadPosts = async () => {
-      setLoadingPosts(true);
-      try {
-        const response = await api.get(`/posts?_page=1&_limit=50`);
-        setPosts(response.data);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoadingPosts(false);
-      }
-    };
     loadPosts();
   }, []);
+
+  const filterPostsByAuthor = async (author) => {
+    setLoadingPosts(true);
+    try {
+      const response = await api.get(`/posts?author=${author}`);
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoadingPosts(false);
+    }
+  }
 
   const createComment = async (event) => {
     event.preventDefault();
@@ -68,7 +82,6 @@ export const PostProvider = ({ children }) => {
     <PostContext.Provider value={{
       posts,
       loadingPosts,
-      createComment,
       setPosts,
       setSelectedPost,
       selectedPost,
@@ -76,7 +89,10 @@ export const PostProvider = ({ children }) => {
       setLoadingPost,
       selectedPostComments,
       setSelectedPostComments,
-      loadPostById
+      createComment,
+      loadPostById,
+      filterPostsByAuthor,
+      loadPosts
     }}>
       {children}
     </PostContext.Provider>
