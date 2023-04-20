@@ -1,9 +1,10 @@
 import styles from "../styles/Card.module.css";
-import { useState } from "react";
+import { useContext } from "react";
 import { useRouter } from "next/router";
+import { PostContext } from "@/contexts/PostContext";
 
 export default function Card({ post }) {
-  const [selectedPost, setSelectedPost] = useState({});
+  const { setSelectedPost } = useContext(PostContext);
   const { push } = useRouter();
 
   const goToPostDetail = () => {
